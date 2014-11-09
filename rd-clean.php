@@ -10,7 +10,6 @@ Domain Path: /languages/
 License: GPL v3
 */
 
-
 function printr($data) {
    echo "<pre>";
       print_r($data);
@@ -21,138 +20,27 @@ function printr($data) {
 if ( !defined('ABSPATH') )
     die('-1');
 
+// Function for easy load files
+function rd_clean_load_files($dir, $files, $prefix = '', $suffix = '') {
+    foreach ($files as $file) {
+        if ( is_file($dir . $prefix . $file . $suffix . ".php") ) {
+            require_once($dir . $prefix . $file . $suffix . ".php");
+        }
+    }   
+}
 
+function rd_clean_checked($option, $current = NULL, $value = 1) {
+    if(isset($option[$current])) {
+        $checked = checked($value, $option[$current], false);
+    }
+    else {
+        $checked = '';
+    }
+
+    return $checked;
+}
+
+define('RD_CLEAN_PATH', dirname(__FILE__).'/');
 define('RD_CLEAN_TEXT_DOMAIN', 'rd-clean');
 
-add_action( 'admin_menu', 'rd_clean_add_admin_menu' );
-add_action( 'admin_init', 'test' );
-
-function rd_clean_add_admin_menu(  ) { 
-    add_options_page( 'RD Clean', 'RD Clean', 'manage_options', 'rd_clean', 'rd_clean_options_page' );
-}
-
-
-function rd_clean_checkbox_field( $args ) { 
-
-    $name = 'rd_clean_settings[rd_clean_'.$args['post_type'].'_'.$args['type'].'_field]';
-
-
-    $option = get_option($name);
-    ?>
-    <input type="checkbox" name="<?php echo $name; ?>" <?php checked($option, 1); ?> value="1">
-    <?php
-
-}
-
-
-function test() {
-
-    $args = array(
-       'public'   => true
-    );
-
-    $output = 'objects';
-
-    $post_types = get_post_types($args, $output);
-
-    foreach ($post_types as $post_type) {
-        global $wp_taxonomies; 
-        // printr($wp_taxonomies);
-        // printr($post_type);
-        $label = $post_type->label;
-        $name = $post_type->name;
-
-        $tag = 0;
-        $category = 0;
-
-        foreach ($wp_taxonomies as $taxonomy) {
-            if($taxonomy->object_type[0] == $name) {
-                if(true == $taxonomy->hierarchical) {
-                    $category++;
-                }
-                else {
-                    $tag ++;
-                }
-            }
-        }
-
-        add_settings_section(
-            'rd_clean_'.$name.'_section', 
-            $label, 
-            '', 
-            'pluginPage'
-        );
-
-        add_settings_field( 
-            'rd_clean_'.$name.'_menu_field', 
-            __( 'Désactiver le menu', RD_CLEAN ), 
-            'rd_clean_checkbox_field', 
-            'pluginPage', 
-            'rd_clean_'.$name.'_section',
-            array('type' => 'menu', 'post_type' => $name)
-        );
-
-        register_setting( 'pluginPage', 'rd_clean_settings[rd_clean_'.$name.'_menu_field]');
-
-        if(!empty($category)) {
-            add_settings_field( 
-                'rd_clean_'.$name.'_category_field', 
-                __( 'Désactiver les catégories', RD_CLEAN ), 
-                'rd_clean_checkbox_field', 
-                'pluginPage', 
-                'rd_clean_'.$name.'_section',
-                array('type' => 'category', 'post_type' => $name)
-            );
-
-            register_setting( 'pluginPage', 'rd_clean_settings[rd_clean_'.$name.'_category_field]');
-        }
-
-        if(!empty($tag)) {
-            add_settings_field( 
-                'rd_clean_'.$name.'_tag_field', 
-                __( 'Désactiver les mots clés', RD_CLEAN ), 
-                'rd_clean_checkbox_field', 
-                'pluginPage', 
-                'rd_clean_'.$name.'_section',
-                array('type' => 'tag', 'post_type' => $name)
-            );
-
-            register_setting( 'pluginPage', 'rd_clean_'.$name.'_tag_field');
-        }
-
-        if(post_type_supports($name, 'comments')) {
-            add_settings_field( 
-                'rd_clean_'.$name.'_comment_field', 
-                __( 'Désactiver les commentaires', RD_CLEAN ), 
-                'rd_clean_checkbox_field', 
-                'pluginPage', 
-                'rd_clean_'.$name.'_section',
-                array('type' => 'comment', 'post_type' => $name)
-            );
-
-            register_setting( 'pluginPage', 'rd_clean_'.$name.'_comment_field');
-        }
-    }
-}
-
-function rd_clean_options_page() { 
-
-    ?>
-    <form action="options.php" method="POST">
-        
-        <h2>RD Clean</h2>
-        
-
-    <?php
-        settings_fields( 'pluginPage' );
-        do_settings_sections( 'pluginPage' );
-        submit_button();
-    ?>
-        
-    </form>
-    <?php
-
-}
-
-
-require_once('test.php');
+rd_clean_load_files(RD_CLEAN_PATH, array('rd-clean', 'rd-clean-seo', 'rd-clean-deactivation'), '', '.class');
