@@ -1,9 +1,5 @@
 <?php
     class RDClean {
-    /**
-     * Holds the values to be used in the fields callbacks
-     */
-    private $options_seo;
 
     /**
      * Start up
@@ -46,16 +42,20 @@
             <?php
                 if($active_tab == 'seo') {
                     settings_fields('rd_clean_seo_option_group');   
-                    do_settings_sections( 'rd_clean_seo_settings_section' );   
+                    do_settings_sections('rd_clean_seo_settings_section');   
                 }
                 elseif($active_tab == 'deactivation') {
                     settings_fields('rd_clean_deactivation_option_group');
-                    
+
                     $post_types = get_post_types(array('public' => true), 'objects');
                     foreach ($post_types as $post_type) {
                         $name = $post_type->name;
-                        do_settings_sections( 'rd_clean_deactivation_'.$name.'_settings_section' ); 
+                        do_settings_sections('rd_clean_deactivation_'.$name.'_settings_section'); 
                     }
+                }
+                else {
+                    settings_fields('rd_clean_general_option_group');   
+                    do_settings_sections('rd_clean_general_settings_section'); 
                 }
 
                 submit_button(); 

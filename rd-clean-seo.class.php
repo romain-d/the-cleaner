@@ -73,19 +73,7 @@ class RDCleanSEO {
             'rd_clean_seo_settings_section',
             array(
                 'name' => 'rd_clean_seo_show_terms',
-                'description' => __('Afficher les mots clés de moins de 3 articles.', RD_CLEAN_TEXT_DOMAIN)
-            )
-        );
-        
-        add_settings_field( 
-            'rd_clean_seo_terms_links',
-            '',
-            array($this, 'rd_clean_seo_checkbox_calback'),
-            'rd_clean_seo_settings_section',
-            'rd_clean_seo_settings_section',
-            array(
-                'name' => 'rd_clean_seo_terms_links',
-                'description' => __('Rediriger les mots clés de moins de 3 articles vers la page d\'accueil.', RD_CLEAN_TEXT_DOMAIN)
+                'description' => __('Ne pas afficher les mots clés de moins de 3 articles et les rediriger vers la page d\'accueil.', RD_CLEAN_TEXT_DOMAIN)
             )
         );
         
@@ -100,7 +88,7 @@ class RDCleanSEO {
             'rd_clean_seo_settings_section',
             array(
                 'name' => 'rd_clean_seo_comment_nofollow',
-                'description' => __('Enlever le "Nofollow" sur les liens dans les commentaires.', RD_CLEAN_TEXT_DOMAIN)
+                'description' => __('Enlever le "Nofollow" sur les liens des commentaires.', RD_CLEAN_TEXT_DOMAIN)
             )
         );
         
