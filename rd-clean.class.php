@@ -47,7 +47,11 @@
                 elseif($active_tab == 'deactivation') {
                     settings_fields('rd_clean_deactivation_option_group');
 
-                    $post_types = get_post_types(array('public' => true), 'objects');
+                    do_settings_sections('rd_clean_deactivation_post_settings_section');
+                    do_settings_sections('rd_clean_deactivation_page_settings_section');
+                    do_settings_sections('rd_clean_deactivation_comment_settings_section');
+
+                    $post_types = get_post_types(array('public' => true, '_builtin' => false), 'objects');
                     foreach ($post_types as $post_type) {
                         $name = $post_type->name;
                         do_settings_sections('rd_clean_deactivation_'.$name.'_settings_section'); 

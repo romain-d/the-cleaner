@@ -17,19 +17,126 @@ class RDCleanDeactivation {
             'rd_clean_deactivation_option'
         );
 
-        $args = array(
-           'public'   => true
+        /*
+            POSTS
+         */
+        
+        add_settings_section(
+            'rd_clean_deactivation_post_settings_section', 
+            __('Articles', RD_CLEAN_TEXT_DOMAIN), 
+            '', 
+            'rd_clean_deactivation_post_settings_section'
         );
 
-        $output = 'objects';
+        add_settings_field( 
+            'rd_clean_deactivation_post_menu', 
+            __('Désactiver les articles', RD_CLEAN_TEXT_DOMAIN), 
+            array($this, 'rd_clean_deactivation_checkbox_calback'),
+            'rd_clean_deactivation_post_settings_section', 
+            'rd_clean_deactivation_post_settings_section',
+            array(
+                'name' => 'rd_clean_deactivation_post_menu'
+            )
+        );
 
-        $post_types = get_post_types($args, $output);
+        add_settings_field( 
+            'rd_clean_deactivation_post_category', 
+            __( 'Désactiver les catégories', RD_CLEAN_TEXT_DOMAIN ), 
+            array($this, 'rd_clean_deactivation_checkbox_calback'),
+            'rd_clean_deactivation_post_settings_section', 
+            'rd_clean_deactivation_post_settings_section',
+            array(
+                'name' => 'rd_clean_deactivation_post_category'
+            )
+        );
+
+        add_settings_field( 
+            'rd_clean_deactivation_post_tag', 
+            __( 'Désactiver les mots clés', RD_CLEAN_TEXT_DOMAIN ), 
+            array($this, 'rd_clean_deactivation_checkbox_calback'),
+            'rd_clean_deactivation_post_settings_section', 
+            'rd_clean_deactivation_post_settings_section',
+            array(
+                'name' => 'rd_clean_deactivation_post_tag'
+            )
+        );
+
+        add_settings_field( 
+            'rd_clean_deactivation_post_comment', 
+            __( 'Désactiver les commentaires', RD_CLEAN_TEXT_DOMAIN ), 
+            array($this, 'rd_clean_deactivation_checkbox_calback'), 
+            'rd_clean_deactivation_post_settings_section', 
+            'rd_clean_deactivation_post_settings_section',
+            array(
+                'name' => 'rd_clean_deactivation_post_comment'
+            )
+        );
+
+        /*
+            PAGES
+         */
+        
+        add_settings_section(
+            'rd_clean_deactivation_page_settings_section', 
+            __('Pages', RD_CLEAN_TEXT_DOMAIN), 
+            '', 
+            'rd_clean_deactivation_page_settings_section'
+        );
+
+        add_settings_field( 
+            'rd_clean_deactivation_page_menu', 
+            __('Désactiver les pages', RD_CLEAN_TEXT_DOMAIN), 
+            array($this, 'rd_clean_deactivation_checkbox_calback'),
+            'rd_clean_deactivation_page_settings_section', 
+            'rd_clean_deactivation_page_settings_section',
+            array(
+                'name' => 'rd_clean_deactivation_page_menu'
+            )
+        );
+
+        add_settings_field( 
+            'rd_clean_deactivation_page_comment', 
+            __( 'Désactiver les commentaires', RD_CLEAN_TEXT_DOMAIN ), 
+            array($this, 'rd_clean_deactivation_checkbox_calback'), 
+            'rd_clean_deactivation_page_settings_section', 
+            'rd_clean_deactivation_page_settings_section',
+            array(
+                'name' => 'rd_clean_deactivation_page_comment'
+            )
+        );
+
+        /*
+            COMMENTS
+         */
+        
+        add_settings_section(
+            'rd_clean_deactivation_comment_settings_section', 
+            __('Commentaires', RD_CLEAN_TEXT_DOMAIN), 
+            '', 
+            'rd_clean_deactivation_comment_settings_section'
+        );
+
+        add_settings_field( 
+            'rd_clean_deactivation_comment_menu', 
+            __('Désactiver les commentaires', RD_CLEAN_TEXT_DOMAIN), 
+            array($this, 'rd_clean_deactivation_checkbox_calback'),
+            'rd_clean_deactivation_comment_settings_section', 
+            'rd_clean_deactivation_comment_settings_section',
+            array(
+                'name' => 'rd_clean_deactivation_comment_menu'
+            )
+        );
+
+        /*
+            CUSTOM POST TYPES
+         */
+        $post_types = get_post_types(array('public' => true, '_builtin' => false), 'objects');
 
         foreach ($post_types as $post_type) {
             global $wp_taxonomies; 
             $label = $post_type->label;
             $name = $post_type->name;
-
+            
             $tag = 0;
             $category = 0;
 
@@ -52,51 +159,51 @@ class RDCleanDeactivation {
             );
 
             add_settings_field( 
-                'rd_clean_'.$name.'_menu_', 
-                __( 'Désactiver le menu', RD_CLEAN_TEXT_DOMAIN ), 
+                'rd_clean_deactivation_'.$name.'_menu', 
+                __( 'Désactiver les ', RD_CLEAN_TEXT_DOMAIN).'"'.$label.'"', 
                 array($this, 'rd_clean_deactivation_checkbox_calback'),
                 'rd_clean_deactivation_'.$name.'_settings_section', 
                 'rd_clean_deactivation_'.$name.'_settings_section',
                 array(
-                    'name' => 'rd_clean_'.$name.'_menu'
+                    'name' => 'rd_clean_deactivation_'.$name.'_menu'
                 )
             );
 
             if(!empty($category)) {
                 add_settings_field( 
-                    'rd_clean_'.$name.'_category', 
+                    'rd_clean_deactivation_'.$name.'_category', 
                     __( 'Désactiver les catégories', RD_CLEAN_TEXT_DOMAIN ), 
                     array($this, 'rd_clean_deactivation_checkbox_calback'),
                     'rd_clean_deactivation_'.$name.'_settings_section', 
                     'rd_clean_deactivation_'.$name.'_settings_section',
                     array(
-                        'name' => 'rd_clean_'.$name.'_category'
+                        'name' => 'rd_clean_deactivation_'.$name.'_category'
                     )
                 );
             }
 
             if(!empty($tag)) {
                 add_settings_field( 
-                    'rd_clean_'.$name.'_tag', 
+                    'rd_clean_deactivation_'.$name.'_tag', 
                     __( 'Désactiver les mots clés', RD_CLEAN_TEXT_DOMAIN ), 
                     array($this, 'rd_clean_deactivation_checkbox_calback'),
                     'rd_clean_deactivation_'.$name.'_settings_section', 
                     'rd_clean_deactivation_'.$name.'_settings_section',
                     array(
-                        'name' => 'rd_clean_'.$name.'_tag'
+                        'name' => 'rd_clean_deactivation_'.$name.'_tag'
                     )
                 );
             }
 
             if(post_type_supports($name, 'comments')) {
                 add_settings_field( 
-                    'rd_clean_'.$name.'_comment', 
+                    'rd_clean_deactivation_'.$name.'_comment', 
                     __( 'Désactiver les commentaires', RD_CLEAN_TEXT_DOMAIN ), 
                     array($this, 'rd_clean_deactivation_checkbox_calback'), 
                     'rd_clean_deactivation_'.$name.'_settings_section', 
                     'rd_clean_deactivation_'.$name.'_settings_section',
                     array(
-                        'name' => 'rd_clean_'.$name.'_comment'
+                        'name' => 'rd_clean_deactivation_'.$name.'_comment'
                     )
                 );
             }
