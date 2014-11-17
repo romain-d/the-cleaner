@@ -5,7 +5,7 @@ class RDCleanGeneralFunctions {
     private $options_general;
 
     public function __construct() {
-        $this->options_general = get_option( 'rd_clean_general_option' );
+        $this->options_general = get_option('rd_clean_general_option');
 
         if(isset($this->options_general['rd_clean_general_login_logo'])) {
             add_action('login_head', array($this, 'rd_clean_general_login_logo'));
@@ -21,12 +21,26 @@ class RDCleanGeneralFunctions {
     }
 
     public function rd_clean_general_login_logo() {
+        $css = '';
+
+        if(isset($this->options_general['rd_clean_general_login_logo_height'], $this->options_general['rd_clean_general_login_logo_width'])) {
+            $height = $this->options_general['rd_clean_general_login_logo_height'];
+            $width = $this->options_general['rd_clean_general_login_logo_width'];
+
+            $css = '
+                background-size: '.$width.'px '.$height.'px;
+                height: '.$height.'px;
+                width: '.$width.'px;
+            ';
+        }
+                
         echo '<style type="text/css">
             .login h1 a { 
                 background-image: none, url('.$this->options_general['rd_clean_general_login_logo'].');
-                background-size: 200px 100px;
-                height: 100px;
-                width: 200px;
+
+                '.$css.'
+
+                padding-bottom: 30px;
             }
         </style>';
     }

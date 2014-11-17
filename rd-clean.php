@@ -40,7 +40,8 @@ function rd_clean_checked($option, $current = NULL, $value = 1) {
     return $checked;
 }
 
-define('RD_CLEAN_PATH', dirname(__FILE__).'/');
+define('RD_CLEAN_PATH', plugin_dir_path(__FILE__));
+define('RD_CLEAN_URL', plugin_dir_url(__FILE__));
 define('RD_CLEAN_TEXT_DOMAIN', 'rd-clean');
 
 rd_clean_load_files(RD_CLEAN_PATH, array('rd-clean', 'rd-clean-general', 'rd-clean-seo', 'rd-clean-deactivation'), '', '.class');
