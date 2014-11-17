@@ -1,9 +1,9 @@
 (function($) {
     $(document).ready(function(){
         $('.add-logo').on('click', function(e) {
-            var $el = $(this).parent();
-
             e.preventDefault();
+
+            var $el = $(this).parent();
 
             var uploader = wp.media({
                 title: 'Envoyer une image',
@@ -20,6 +20,18 @@
                 $('img', $el).attr('src', attachment.url);
             })
             .open();
+
+            $('.del-logo', $el).removeClass('hidden');
+        }); 
+
+        $('.del-logo').on('click', function(e) {
+            e.preventDefault();
+
+            var $el = $(this).parent();
+            $('input', $el).val('');
+            $('img', $el).attr('src', '');
+
+            $(this).addClass('hidden');
         });    
     });
 })(jQuery);

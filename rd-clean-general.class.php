@@ -41,7 +41,8 @@ class RDCleanGeneral {
             'rd_clean_general_settings_section',
             array(
                 'name' => 'rd_clean_general_login_logo',
-                'button' => __('Choisir une image', RD_CLEAN_TEXT_DOMAIN)
+                'button_add' => __('Choisir une image', RD_CLEAN_TEXT_DOMAIN),
+                'button_del' => __('Supprimer l\'image', RD_CLEAN_TEXT_DOMAIN)
             )
         );
 
@@ -121,9 +122,11 @@ class RDCleanGeneral {
             $input = '';
         }
 
-        $html = '<img src="'.$input.'" width="250" />';
-        $html .= '<input type="text" id="'.$args['name'].'" name="rd_clean_general_option['.$args['name'].']" value="'.$input.'" size="75" readOnly="readOnly" />';
-        $html .= '<a href="#" class="button add-logo"> '.$args['button'].'</a>';
+        $html = '<div><img src="'.$input.'" width="250" /></div>';
+        $html .= '<input type="text" id="'.$args['name'].'" name="rd_clean_general_option['.$args['name'].']" value="'.$input.'" size="50" readOnly="readOnly" />';
+        $html .= '<a href="#" class="button add-logo"> '.$args['button_add'].'</a>';
+
+        $html .= '<a href="#" class="button del-logo hidden"> '.$args['button_del'].'</a>';
 
         echo $html;
     }
