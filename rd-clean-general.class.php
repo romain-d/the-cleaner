@@ -76,14 +76,29 @@ class RDCleanGeneral {
          *  Désactiver les flux RSS
          */
         add_settings_field( 
-            'rd_clean_general_desactive_rss',
+            'rd_clean_general_disable_rss',
             __('Flux RSS', RD_CLEAN_TEXT_DOMAIN),
             array($this, 'rd_clean_general_checkbox_calback'),
             'rd_clean_general_settings_section',
             'rd_clean_general_settings_section',
             array(
-                'name' => 'rd_clean_general_desactive_rss',
+                'name' => 'rd_clean_general_disable_rss',
                 'description' => __('Désactiver les flux RSS (RSS, RDF, ATOM).', RD_CLEAN_TEXT_DOMAIN),
+            )
+        );
+
+        /**
+         *  Désactiver les MAJ Automatiques pour le Core, les Plugins, les Thèmes et les Traductions
+         */
+        add_settings_field( 
+            'rd_clean_general_disable_auto_update',
+            __('Mises à jour WordPress', RD_CLEAN_TEXT_DOMAIN),
+            array($this, 'rd_clean_general_checkbox_calback'),
+            'rd_clean_general_settings_section',
+            'rd_clean_general_settings_section',
+            array(
+                'name' => 'rd_clean_general_disable_auto_update',
+                'description' => __('Désactiver les mises à jour automatiques de WordPress (Core, Plugins, Thèmes, Traductions).', RD_CLEAN_TEXT_DOMAIN),
             )
         );
     }
@@ -126,8 +141,10 @@ class RDCleanGeneral {
         $html .= '<input type="text" id="'.$args['name'].'" name="rd_clean_general_option['.$args['name'].']" value="'.$input.'" size="50" readOnly="readOnly" />';
         $html .= '<a href="#" class="button add-logo"> '.$args['button_add'].'</a>';
 
-        $html .= '<a href="#" class="button del-logo hidden"> '.$args['button_del'].'</a>';
+        $hidden = (empty($input)) ? 'hidden' : '';
 
+        $html .= '<a href="#" class="button del-logo '.$hidden.'"> '.$args['button_del'].'</a>';
+        
         echo $html;
     }
 }

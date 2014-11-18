@@ -35,11 +35,11 @@ class RDCleanDeactivationFunctions {
             HOOKS POSTS
          */
         
-        if(isset($this->options_deactivation['rd_clean_deactivation_post_menu'])) {
-            add_action('admin_menu', array($this, 'rd_clean_deactivation_post_menu_remove_menu'));
-            add_action('admin_init', array($this, 'rd_clean_deactivation_post_menu_redirect'));
-            add_action('admin_bar_menu', array($this, 'rd_clean_deactivation_post_menu_admin_bar'), 999);
-            add_action('wp_dashboard_setup', array($this, 'rd_clean_deactivation_post_menu_dashboard'));
+        if(isset($this->options_deactivation['rd_clean_deactivation_post_disable'])) {
+            add_action('admin_menu', array($this, 'rd_clean_deactivation_post_disable_remove_menu'));
+            add_action('admin_init', array($this, 'rd_clean_deactivation_post_disable_redirect'));
+            add_action('admin_bar_menu', array($this, 'rd_clean_deactivation_post_disable_admin_bar'), 999);
+            add_action('wp_dashboard_setup', array($this, 'rd_clean_deactivation_post_disable_dashboard'));
         }
          
         if(isset($this->options_deactivation['rd_clean_deactivation_post_comment'])) {
@@ -65,14 +65,14 @@ class RDCleanDeactivationFunctions {
             HOOKS COMMENTS
          */
 
-        if(isset($this->options_deactivation['rd_clean_deactivation_comment_menu'])) {
+        if(isset($this->options_deactivation['rd_clean_deactivation_comment_disable'])) {
             add_action('admin_menu', array($this, 'rd_clean_deactivation_comment_remove_menu'));
             add_action('admin_init', array($this, 'rd_clean_deactivation_comment_remove_support'));
             add_filter('comments_open', array($this, 'rd_clean_deactivation_comment_close_front'), 20, 2);
             add_filter('pings_open', array($this, 'rd_clean_deactivation_comment_close_front'), 20, 2);
             add_filter('comments_array', array($this, 'rd_clean_deactivation_comment_hide_existing'), 10, 2);
             add_filter('get_comments_number', array($this, 'rd_clean_deactivation_comment_comments_number'), 10);
-            add_action('admin_init', array($this, 'rd_clean_deactivation_comment_menu_redirect'));
+            add_action('admin_init', array($this, 'rd_clean_deactivation_comment_redirect'));
             add_action('admin_init', array($this, 'rd_clean_deactivation_comment_dashboard'));
             add_action('admin_bar_menu', array($this, 'rd_clean_deactivation_comment_admin_bar'), 999);
             add_action('widgets_init', array($this, 'rd_clean_deactivation_comment_widget_recent_comments'));
@@ -84,11 +84,11 @@ class RDCleanDeactivationFunctions {
      */
     
     /* DISABLE POSTS */
-    public function rd_clean_deactivation_post_menu_remove_menu() {
+    public function rd_clean_deactivation_post_disable_remove_menu() {
         remove_menu_page('edit.php');
     }
 
-    public function rd_clean_deactivation_post_menu_redirect() {
+    public function rd_clean_deactivation_post_disable_redirect() {
         global $pagenow;
         
         $posts_page = array(
@@ -103,13 +103,13 @@ class RDCleanDeactivationFunctions {
         }
     }
 
-    public function rd_clean_deactivation_post_menu_admin_bar($wp_admin_bar) {
+    public function rd_clean_deactivation_post_disable_admin_bar($wp_admin_bar) {
         if (is_admin_bar_showing()) {
             $wp_admin_bar->remove_node('new-post');
         }
     }
 
-    public function rd_clean_deactivation_post_menu_dashboard() {
+    public function rd_clean_deactivation_post_disable_dashboard() {
         global $wp_meta_boxes;
         unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
     }
@@ -206,7 +206,7 @@ class RDCleanDeactivationFunctions {
     }
 
     // Redirect any user trying to access comments page
-    public function rd_clean_deactivation_comment_menu_redirect() {
+    public function rd_clean_deactivation_comment_redirect() {
         global $pagenow;
         if ($pagenow === 'edit-comments.php') {
             wp_redirect(admin_url()); exit;

@@ -7,16 +7,20 @@ class RDCleanGeneralFunctions {
     public function __construct() {
         $this->options_general = get_option('rd_clean_general_option');
 
-        if(isset($this->options_general['rd_clean_general_login_logo'])) {
+        if(is_login_page() && !empty($this->options_general['rd_clean_general_login_logo'])) {
             add_action('login_head', array($this, 'rd_clean_general_login_logo'));
         }
 
-        if(isset($this->options_general['rd_clean_general_desactive_rss'])) {
-            add_action('do_feed', array($this, 'rd_clean_general_desactive_rss'), 1);
-            add_action('do_feed_rdf', array($this, 'rd_clean_general_desactive_rss'), 1);
-            add_action('do_feed_rss', array($this, 'rd_clean_general_desactive_rss'), 1);
-            add_action('do_feed_rss2', array($this, 'rd_clean_general_desactive_rss'), 1);
-            add_action('do_feed_atom', array($this, 'rd_clean_general_desactive_rss'), 1);
+        if(isset($this->options_general['rd_clean_general_disable_rss'])) {
+            add_action('do_feed', array($this, 'rd_clean_general_disable_rss'), 1);
+            add_action('do_feed_rdf', array($this, 'rd_clean_general_disable_rss'), 1);
+            add_action('do_feed_rss', array($this, 'rd_clean_general_disable_rss'), 1);
+            add_action('do_feed_rss2', array($this, 'rd_clean_general_disable_rss'), 1);
+            add_action('do_feed_atom', array($this, 'rd_clean_general_disable_rss'), 1);
+        }
+
+        if(isset($this->options_general['rd_clean_general_disable_auto_update'])) {
+            add_filter('automatic_updater_disabled', '__return_true');
         }
     }
 
@@ -45,7 +49,7 @@ class RDCleanGeneralFunctions {
         </style>';
     }
 
-    public function rd_clean_general_desactive_rss() {
+    public function rd_clean_general_disable_rss() {
         wp_die( __('Pas de flux disponible, vous pouvez visiter notre <a href="'. get_bloginfo('url') .'">Site</a> !'), RD_CLEAN_TEXT_DOMAIN);
     }
 

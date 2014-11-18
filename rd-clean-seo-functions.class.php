@@ -11,7 +11,7 @@ class RDCleanSEOFunctions {
             add_action('pre_ping', array($this, 'rd_clean_seo_internal_ping'));
         }
 
-        if(isset($this->options_seo['rd_clean_seo_author_description'])) {
+        if(is_admin() && isset($this->options_seo['rd_clean_seo_author_description'])) {
             add_action('show_user_profile', array($this, 'rd_clean_seo_author_description_field'));
             add_action('edit_user_profile', array($this, 'rd_clean_seo_author_description_field'));
             add_action('personal_options_update', array($this, 'rd_clean_seo_author_description_save'));
@@ -30,7 +30,7 @@ class RDCleanSEOFunctions {
             add_filter('get_comment_author_link', array($this, 'rd_clean_seo_comment_nofollow_link'));
         }
 
-        if(isset($this->options_seo['rd_clean_seo_editor_styles'])) {
+        if(is_admin() && isset($this->options_seo['rd_clean_seo_editor_styles'])) {
             add_filter('tiny_mce_before_init', array($this, 'rd_clean_seo_editor_styles'));
         }
 

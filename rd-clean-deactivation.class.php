@@ -29,13 +29,13 @@ class RDCleanDeactivation {
         );
 
         add_settings_field( 
-            'rd_clean_deactivation_post_menu', 
+            'rd_clean_deactivation_post_disable', 
             __('Désactiver les articles', RD_CLEAN_TEXT_DOMAIN), 
             array($this, 'rd_clean_deactivation_checkbox_calback'),
             'rd_clean_deactivation_post_settings_section', 
             'rd_clean_deactivation_post_settings_section',
             array(
-                'name' => 'rd_clean_deactivation_post_menu'
+                'name' => 'rd_clean_deactivation_post_disable'
             )
         );
 
@@ -84,13 +84,13 @@ class RDCleanDeactivation {
         );
 
         add_settings_field( 
-            'rd_clean_deactivation_page_menu', 
+            'rd_clean_deactivation_page_disable', 
             __('Désactiver les pages', RD_CLEAN_TEXT_DOMAIN), 
             array($this, 'rd_clean_deactivation_checkbox_calback'),
             'rd_clean_deactivation_page_settings_section', 
             'rd_clean_deactivation_page_settings_section',
             array(
-                'name' => 'rd_clean_deactivation_page_menu'
+                'name' => 'rd_clean_deactivation_page_disable'
             )
         );
 
@@ -117,13 +117,13 @@ class RDCleanDeactivation {
         );
 
         add_settings_field( 
-            'rd_clean_deactivation_comment_menu', 
+            'rd_clean_deactivation_comment_disable', 
             __('Désactiver les commentaires', RD_CLEAN_TEXT_DOMAIN), 
             array($this, 'rd_clean_deactivation_checkbox_calback'),
             'rd_clean_deactivation_comment_settings_section', 
             'rd_clean_deactivation_comment_settings_section',
             array(
-                'name' => 'rd_clean_deactivation_comment_menu'
+                'name' => 'rd_clean_deactivation_comment_disable'
             )
         );
 
@@ -159,13 +159,13 @@ class RDCleanDeactivation {
             );
 
             add_settings_field( 
-                'rd_clean_deactivation_'.$name.'_menu', 
+                'rd_clean_deactivation_'.$name.'_disable', 
                 __( 'Désactiver les ', RD_CLEAN_TEXT_DOMAIN).'"'.$label.'"', 
                 array($this, 'rd_clean_deactivation_checkbox_calback'),
                 'rd_clean_deactivation_'.$name.'_settings_section', 
                 'rd_clean_deactivation_'.$name.'_settings_section',
                 array(
-                    'name' => 'rd_clean_deactivation_'.$name.'_menu'
+                    'name' => 'rd_clean_deactivation_'.$name.'_disable'
                 )
             );
 
