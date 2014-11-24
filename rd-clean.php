@@ -49,7 +49,7 @@ define('RD_CLEAN_URL', plugin_dir_url(__FILE__));
 define('RD_CLEAN_TEXT_DOMAIN', 'rd-clean');
 
 if(is_admin()) {
-    rd_clean_load_files(RD_CLEAN_PATH, array('rd-clean', 'rd-clean-general', 'rd-clean-seo', 'rd-clean-deactivation'), '', '.class');
+    rd_clean_load_files(RD_CLEAN_PATH, array('rd-clean', 'rd-clean-general', 'rd-clean-seo', 'rd-clean-deactivation', 'rd-clean-user'), '', '.class');
 }
 
-rd_clean_load_files(RD_CLEAN_PATH, array('rd-clean-general-functions', 'rd-clean-seo-functions', 'rd-clean-deactivation-functions'), '', '.class');
+rd_clean_load_files(RD_CLEAN_PATH, array('rd-clean-general-functions', 'rd-clean-seo-functions', 'rd-clean-deactivation-functions', 'rd-clean-user-functions'), '', '.class');

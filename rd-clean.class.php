@@ -36,6 +36,7 @@
                 <a href="?page=rd_clean_page&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e('Général', RD_CLEAN_TEXT_DOMAIN); ?></a>
                 <a href="?page=rd_clean_page&tab=seo" class="nav-tab <?php echo $active_tab == 'seo' ? 'nav-tab-active' : ''; ?>"><?php _e('SEO', RD_CLEAN_TEXT_DOMAIN); ?></a>
                 <a href="?page=rd_clean_page&tab=deactivation" class="nav-tab <?php echo $active_tab == 'deactivation' ? 'nav-tab-active' : ''; ?>"><?php _e('Désactivation', RD_CLEAN_TEXT_DOMAIN); ?></a>
+                <a href="?page=rd_clean_page&tab=user" class="nav-tab <?php echo $active_tab == 'user' ? 'nav-tab-active' : ''; ?>"><?php _e('Utilisateur', RD_CLEAN_TEXT_DOMAIN); ?></a>
             </h2>
 
             <form method="POST" action="options.php">
@@ -56,6 +57,10 @@
                         $name = $post_type->name;
                         do_settings_sections('rd_clean_deactivation_'.$name.'_settings_section'); 
                     }
+                }
+                elseif($active_tab == 'user') {
+                    settings_fields('rd_clean_user_option_group');   
+                    do_settings_sections('rd_clean_user_settings_section');   
                 }
                 else {
                     settings_fields('rd_clean_general_option_group');   
