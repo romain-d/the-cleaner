@@ -17,7 +17,7 @@
             'RD Clean', 
             'manage_options', 
             'rd_clean_page', 
-            array( $this, 'rd_clean_settings_page' )
+            array($this, 'rd_clean_settings_page')
         );
     }
 

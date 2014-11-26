@@ -77,10 +77,7 @@ class RDCleanUser {
         add_action('admin_init', array($this, 'rd_clean_initialize_user_options'));
     }
 
-    public function rd_clean_initialize_user_options() {  
-
-        // global $wp_roles;
-        // printr($wp_roles->roles);
+    public function rd_clean_initialize_user_options() { 
 
         $this->options_user = get_option('rd_clean_user_option');
 

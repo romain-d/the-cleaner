@@ -7,24 +7,22 @@ class RDCleanUserFunctions {
     public function __construct() {
         $this->options_user = get_option('rd_clean_user_option');
 
-        $count = count($this->options_user);
-
-        if(!empty($this->options_user['rd_clean_user_role_name']) && $count > 1) {
-            add_action('init', array($this, 'rd_clean_user_role'));
-        }
+        add_action('update_option_rd_clean_user_option', array($this, 'rd_clean_user_role'), 1, 2);
     }
 
-    public function rd_clean_user_role() {
+    public function rd_clean_user_role($old_value, $new_value) {
 
         $capabilities = array();
         $role_slug = 'rd-clean-role';
-        $role_name = esc_attr($this->options_user['rd_clean_user_role_name']);
+        $role_name = esc_attr($new_value['rd_clean_user_role_name']);
 
-        foreach ($this->options_user as $option => $value) {
-            if($option != 'rd_clean_user_role_name') {
-                $capabilities[$option] = TRUE;
-            }
+        // delete the rd_clean_user_role_name to loop just all selected capabilities
+        unset($new_value['rd_clean_user_role_name']);
+
+        foreach ($new_value as $option => $value) {
+            $capabilities[$option] = TRUE;
         }
+
         remove_role($role_slug);
         add_role($role_slug, $role_name, $capabilities);
     }
