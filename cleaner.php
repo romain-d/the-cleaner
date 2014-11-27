@@ -30,7 +30,7 @@ function cleaner_load_files($dir, $files, $prefix = '', $suffix = '') {
 }
 
 function cleaner_checked($option, $current = NULL, $value = 1) {
-    $checked = (isset($option[$current]) ? checked($value, $option[$current], false) : '';
+    $checked = (isset($option[$current])) ? checked($value, $option[$current], false) : '';
     return $checked;
 }
 
@@ -43,7 +43,7 @@ define('CLEANER_URL', plugin_dir_url(__FILE__));
 define('CLEANER_TEXT_DOMAIN', 'the-cleaner');
 
 if(is_admin()) {
-    cleaner_load_files(CLEANER_PATH, array('cleaner', 'cleaner-general', 'cleaner-seo', 'cleaner-deactivation', 'cleaner-user'), '', '.class');
+    cleaner_load_files(CLEANER_PATH, array('cleaner', 'cleaner-general', 'cleaner-seo', 'cleaner-deactivation', 'cleaner-role'), '', '.class');
 }
 
-cleaner_load_files(CLEANER_PATH, array('cleaner-general-functions', 'cleaner-seo-functions', 'cleaner-deactivation-functions', 'cleaner-user-functions'), '', '.class');
+cleaner_load_files(CLEANER_PATH, array('cleaner-general-functions', 'cleaner-seo-functions', 'cleaner-deactivation-functions', 'cleaner-role-functions'), '', '.class');

@@ -7,7 +7,7 @@ class CleanerGeneralFunctions {
     public function __construct() {
         $this->options_general = get_option('cleaner_general_option');
 
-        if(is_login_page() && !empty($this->options_general['cleaner_general_login_logo'])) {
+        if(cleaner_is_login_page() && !empty($this->options_general['cleaner_general_login_logo'])) {
             add_action('login_head', array($this, 'cleaner_general_login_logo'));
         }
 

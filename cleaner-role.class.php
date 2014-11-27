@@ -1,8 +1,8 @@
 <?php
 
-class CleanerUser {
+class CleanerRole {
 
-    private $options_user;
+    private $options_role;
 
     public $roles = array(
         'administrator' => 'Administrateur',
@@ -74,33 +74,33 @@ class CleanerUser {
     );
 
     public function __construct() {
-        add_action('admin_init', array($this, 'cleaner_initialize_user_options'));
+        add_action('admin_init', array($this, 'cleaner_initialize_role_options'));
     }
 
-    public function cleaner_initialize_user_options() { 
+    public function cleaner_initialize_role_options() { 
 
-        $this->options_user = get_option('cleaner_user_option');
+        $this->options_role = get_option('cleaner_role_option');
 
         register_setting(
-            'cleaner_user_option_group',
-            'cleaner_user_option'
+            'cleaner_role_option_group',
+            'cleaner_role_option'
         );
 
         add_settings_section(
-            'cleaner_user_settings_section',
+            'cleaner_role_settings_section',
             '',
             '',
-            'cleaner_user_settings_section'
+            'cleaner_role_settings_section'
         );  
 
         add_settings_field( 
-            'cleaner_user_role_name',
+            'cleaner_role_name',
             __('Rôle', CLEANER_TEXT_DOMAIN),
-            array($this, 'cleaner_user_input_calback'),
-            'cleaner_user_settings_section',
-            'cleaner_user_settings_section',
+            array($this, 'cleaner_role_input_calback'),
+            'cleaner_role_settings_section',
+            'cleaner_role_settings_section',
             array(
-                'name' => 'cleaner_user_role_name',
+                'name' => 'cleaner_role_name',
                 'description' => __('Nom du nouveau rôle', CLEANER_TEXT_DOMAIN),
             )
         );
@@ -119,9 +119,9 @@ class CleanerUser {
                 add_settings_field( 
                     $capability,
                     __($role_name, CLEANER_TEXT_DOMAIN),
-                    array($this, 'cleaner_user_checkbox_calback'),
-                    'cleaner_user_settings_section',
-                    'cleaner_user_settings_section',
+                    array($this, 'cleaner_role_checkbox_calback'),
+                    'cleaner_role_settings_section',
+                    'cleaner_role_settings_section',
                     array(
                         'name' => $capability,
                         'description' => $capability
@@ -131,26 +131,21 @@ class CleanerUser {
         }
     }
 
-    public function cleaner_user_checkbox_calback($args) {   
+    public function cleaner_role_checkbox_calback($args) {   
 
-        $html = '<input type="checkbox" id="'.$args['name'].'" name="cleaner_user_option['.$args['name'].']" value="1" '.cleaner_checked($this->options_user, $args['name']).'/>';
+        $html = '<input type="checkbox" id="'.$args['name'].'" name="cleaner_role_option['.$args['name'].']" value="1" '.cleaner_checked($this->options_role, $args['name']).'/>';
         $html .= '<label for="'.$args['name'].'"> '.$args['description'].'</label>';
          
         echo $html;
     }
 
-    public function cleaner_user_input_calback($args) {
+    public function cleaner_role_input_calback($args) {
 
-        if(isset($this->options_user[$args['name']])) {
-            $input = esc_attr($this->options_user[$args['name']]);
-        }
-        else {
-            $input = '';
-        }
+        $input = (isset($this->options_role[$args['name']])) ? esc_attr($this->options_role[$args['name']]) : '';
 
         $size = (isset($args['size'])) ? $args['size'] : '20';
 
-        $html = '<input type="text" id="'.$args['name'].'" name="cleaner_user_option['.$args['name'].']" value="'.$input.'" size="'.$size.'"/>';
+        $html = '<input type="text" id="'.$args['name'].'" name="cleaner_role_option['.$args['name'].']" value="'.$input.'" size="'.$size.'"/>';
         $html .= '<label for="'.$args['name'].'"> '.$args['description'].'</label>';
 
         echo $html;
@@ -158,5 +153,5 @@ class CleanerUser {
 }
 
 if(is_admin()) {
-    $cleaner_user = new CleanerUser();
+    $cleaner_role = new CleanerRole();
 }

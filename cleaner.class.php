@@ -13,8 +13,8 @@
      */
     public function cleaner_plugin_page() {
         add_options_page(
-            'RD Clean', 
-            'RD Clean', 
+            'The Cleaner', 
+            'The Cleaner', 
             'manage_options', 
             'cleaner_page', 
             array($this, 'cleaner_settings_page')
@@ -30,13 +30,13 @@
 
         ?>
         <div class="wrap">
-            <h2><?php _e('RD Clean', CLEANER_TEXT_DOMAIN); ?></h2>
+            <h2><?php _e('The Cleaner', CLEANER_TEXT_DOMAIN); ?></h2>
 
             <h2 class="nav-tab-wrapper">
                 <a href="?page=cleaner_page&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e('Général', CLEANER_TEXT_DOMAIN); ?></a>
                 <a href="?page=cleaner_page&tab=seo" class="nav-tab <?php echo $active_tab == 'seo' ? 'nav-tab-active' : ''; ?>"><?php _e('SEO', CLEANER_TEXT_DOMAIN); ?></a>
                 <a href="?page=cleaner_page&tab=deactivation" class="nav-tab <?php echo $active_tab == 'deactivation' ? 'nav-tab-active' : ''; ?>"><?php _e('Désactivation', CLEANER_TEXT_DOMAIN); ?></a>
-                <a href="?page=cleaner_page&tab=user" class="nav-tab <?php echo $active_tab == 'user' ? 'nav-tab-active' : ''; ?>"><?php _e('Utilisateur', CLEANER_TEXT_DOMAIN); ?></a>
+                <a href="?page=cleaner_page&tab=role" class="nav-tab <?php echo $active_tab == 'role' ? 'nav-tab-active' : ''; ?>"><?php _e('Rôle', CLEANER_TEXT_DOMAIN); ?></a>
             </h2>
 
             <form method="POST" action="options.php">
@@ -58,9 +58,9 @@
                         do_settings_sections('cleaner_deactivation_'.$name.'_settings_section'); 
                     }
                 }
-                elseif($active_tab == 'user') {
-                    settings_fields('cleaner_user_option_group');   
-                    do_settings_sections('cleaner_user_settings_section');   
+                elseif($active_tab == 'role') {
+                    settings_fields('cleaner_role_option_group');   
+                    do_settings_sections('cleaner_role_settings_section');   
                 }
                 else {
                     settings_fields('cleaner_general_option_group');   
