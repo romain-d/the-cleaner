@@ -10,7 +10,7 @@ class CleanerGeneral {
     }
 
     public function cleaner_general_load_js() {
-        wp_enqueue_script('adminjs', RD_CLEAN_URL.'assets/admin.js', array( 'jquery' ), false, false);
+        wp_enqueue_script('adminjs', CLEANER_URL.'assets/admin.js', array( 'jquery' ), false, false);
         wp_enqueue_media();
     }
 

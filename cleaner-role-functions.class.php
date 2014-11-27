@@ -12,7 +12,7 @@ class CleanerRoleFunctions {
 
     public function cleaner_update_role($old_value, $new_value) {
         // Need to have the label of the role
-        if(!empty($new_value['cleaner_role_name']) {
+        if(!empty($new_value['cleaner_role_name'])) {
             $capabilities = array();
             $role_slug = 'cleaner-role';
             $role_name = esc_attr($new_value['cleaner_role_name']);
