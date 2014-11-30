@@ -48,21 +48,6 @@ class CleanerSEO {
         );
 
         /**
-         * Description détaillée de l'auteur
-         */
-        add_settings_field( 
-            'cleaner_seo_author_description',
-            __('Description détaillée de l\'auteur', CLEANER_TEXT_DOMAIN),
-            array($this, 'cleaner_seo_checkbox_calback'),
-            'cleaner_seo_settings_section',
-            'cleaner_seo_settings_section',
-            array(
-                'name' => 'cleaner_seo_author_description',
-                'description' => __('Activer la description détaillée des auteurs.', CLEANER_TEXT_DOMAIN)
-            )
-        );
-
-        /**
          * Mots clés de moins de 3 articles
          */
         add_settings_field( 

@@ -5,17 +5,10 @@ class CleanerSEOFunctions {
     private $options_seo;
 
     public function __construct() {
-        $this->options_seo = get_option( 'cleaner_seo_option' );
+        $this->options_seo = get_option('cleaner_seo_option');
 
         if(isset($this->options_seo['cleaner_seo_internal_ping'])) {
             add_action('pre_ping', array($this, 'cleaner_seo_internal_ping'));
-        }
-
-        if(is_admin() && isset($this->options_seo['cleaner_seo_author_description'])) {
-            add_action('show_user_profile', array($this, 'cleaner_seo_author_description_field'));
-            add_action('edit_user_profile', array($this, 'cleaner_seo_author_description_field'));
-            add_action('personal_options_update', array($this, 'cleaner_seo_author_description_save'));
-            add_action('edit_user_profile_update', array($this, 'cleaner_seo_author_description_save'));
         }
 
         if(isset($this->options_seo['cleaner_seo_show_terms'])) {
@@ -43,7 +36,7 @@ class CleanerSEOFunctions {
         }
 
         if(isset($this->options_seo['cleaner_seo_excerpt_length'])) {
-            add_filter('excerpt_length', 'cleaner_seo_excerpt_length', 100);
+            add_filter('excerpt_length', array($this, 'cleaner_seo_excerpt_length'), 100);
         }
     }
 
@@ -57,34 +50,7 @@ class CleanerSEOFunctions {
             if (0 === strpos($link, $home))
                 unset($links[$l]);
         }
-    }
-
-    /*
-        FUNCTIONS AUTHOR DESCRIPTION
-     */
-    public function cleaner_seo_author_description_field ($user) { ?>
-        <h3><?php _e('Informations complémentaires sur le profil', CLEANER_TEXT_DOMAIN); ?></h3>
-
-        <table class="form-table">
-            <tr>
-                <th>
-                    <label for="shortdesc"><?php _e('Description détaillée de l\'auteur', CLEANER_TEXT_DOMAIN); ?></label>
-                </th>
-                <td>
-                    <textarea name="shortdesc" id="shortdesc" cols="8" rows="3"><?php echo esc_textarea(get_the_author_meta('shortdesc', $user->ID) ); ?></textarea>
-                    <br />
-                </td>
-            </tr>
-        </table>
-        <?php 
     } 
-
-    public function cleaner_seo_author_description_save ($user_id) {
-        if (!current_user_can('edit_user', $user_id)) {
-            return false;
-        }
-        update_usermeta($user_id, 'shortdesc', $_POST['shortdesc']);
-    }
 
     /*
         FUNCTIONS TERMS
@@ -146,7 +112,7 @@ class CleanerSEOFunctions {
     /*
         FUNCTIONS EXCERPT LENGTH
      */
-    function cleaner_seo_excerpt_length($length) {
+    function cleaner_seo_excerpt_length ($length) {
         if (isset($this->options_seo['cleaner_seo_excerpt_length_rss']) && is_feed()) {
             return $this->options_seo['cleaner_seo_excerpt_length_rss']; 
         }
