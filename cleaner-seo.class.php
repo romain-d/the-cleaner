@@ -108,6 +108,21 @@ class CleanerSEO {
         );
         
         /**
+         * Supprimer le lien court des Post
+         */
+        add_settings_field( 
+            'cleaner_seo_remove_short_link',
+            __('Liens courts', CLEANER_TEXT_DOMAIN),
+            array($this, 'cleaner_seo_checkbox_calback'),
+            'cleaner_seo_settings_section',
+            'cleaner_seo_settings_section',
+            array(
+                'name' => 'cleaner_seo_remove_short_link',
+                'description' => __('Supprimer le lien court des Posts.', CLEANER_TEXT_DOMAIN)
+            )
+        );
+
+        /**
          * Taille des extraits
          */
         add_settings_field( 

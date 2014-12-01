@@ -35,6 +35,10 @@ class CleanerSEOFunctions {
             remove_action('wp_head', 'wlwmanifest_link');
         }
 
+        if(isset($this->options_seo['cleaner_seo_remove_short_link'])) {
+            add_filter('pre_get_shortlink', '__return_empty_string');
+        }
+
         if(isset($this->options_seo['cleaner_seo_excerpt_length'])) {
             add_filter('excerpt_length', array($this, 'cleaner_seo_excerpt_length'), 100);
         }
