@@ -13,8 +13,8 @@
      */
     public function wpcleaner_plugin_page() {
         add_options_page(
-            'The WPCleaner', 
-            'The WPCleaner', 
+            'WP Cleaner', 
+            'WP Cleaner', 
             'manage_options', 
             'wpcleaner_page', 
             array($this, 'wpcleaner_settings_page')

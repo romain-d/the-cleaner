@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: WP Cleaner
+Plugin Name: WP-Cleaner
 Version: 1.0
-Description: WP Cleaner is a plugin to clean the WordPress Back Office and do SEO and redundant functionality for our customers
+Description: WP-Cleaner is a plugin to clean the WordPress Back Office and do SEO and redundant functionality for our customers
 Author: Romain DORR
 Author URI: https://romaindorr.fr
 Text Domain: wp-cleaner
@@ -43,7 +43,7 @@ define('WPCLEANER_URL', plugin_dir_url(__FILE__));
 define('WPCLEANER_TEXT_DOMAIN', 'wp-cleaner');
 
 if(is_admin()) {
-    wpcleaner_load_files(WPCLEANER_PATH, array('wpcleaner', 'wpcleaner-general', 'wpcleaner-seo', 'wpcleaner-deactivation', 'wpcleaner-role'), '', '.class');
+    wpcleaner_load_files(WPCLEANER_PATH, array('wp-cleaner', 'wp-cleaner-general', 'wp-cleaner-seo', 'wp-cleaner-deactivation', 'wp-cleaner-role'), '', '.class');
 }
 
-wpcleaner_load_files(WPCLEANER_PATH, array('wpcleaner-general-functions', 'wpcleaner-seo-functions', 'wpcleaner-deactivation-functions', 'wpcleaner-role-functions'), '', '.class');
+wpcleaner_load_files(WPCLEANER_PATH, array('wp-cleaner-general-functions', 'wp-cleaner-seo-functions', 'wp-cleaner-deactivation-functions', 'wp-cleaner-role-functions'), '', '.class');
