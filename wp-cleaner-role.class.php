@@ -1,6 +1,6 @@
 <?php
 
-class CleanerRole {
+class WPCleanerRole {
 
     private $options_role;
 
@@ -74,34 +74,34 @@ class CleanerRole {
     );
 
     public function __construct() {
-        add_action('admin_init', array($this, 'cleaner_initialize_role_options'));
+        add_action('admin_init', array($this, 'wpcleaner_initialize_role_options'));
     }
 
-    public function cleaner_initialize_role_options() { 
+    public function wpcleaner_initialize_role_options() { 
 
-        $this->options_role = get_option('cleaner_role_option');
+        $this->options_role = get_option('wpcleaner_role_option');
 
         register_setting(
-            'cleaner_role_option_group',
-            'cleaner_role_option'
+            'wpcleaner_role_option_group',
+            'wpcleaner_role_option'
         );
 
         add_settings_section(
-            'cleaner_role_settings_section',
+            'wpcleaner_role_settings_section',
             '',
             '',
-            'cleaner_role_settings_section'
+            'wpcleaner_role_settings_section'
         );  
 
         add_settings_field( 
-            'cleaner_role_name',
-            __('Rôle', CLEANER_TEXT_DOMAIN),
-            array($this, 'cleaner_role_input_calback'),
-            'cleaner_role_settings_section',
-            'cleaner_role_settings_section',
+            'wpcleaner_role_name',
+            __('Rôle', WPCLEANER_TEXT_DOMAIN),
+            array($this, 'wpcleaner_role_input_calback'),
+            'wpcleaner_role_settings_section',
+            'wpcleaner_role_settings_section',
             array(
-                'name' => 'cleaner_role_name',
-                'description' => __('Nom du nouveau rôle', CLEANER_TEXT_DOMAIN),
+                'name' => 'wpcleaner_role_name',
+                'description' => __('Nom du nouveau rôle', WPCLEANER_TEXT_DOMAIN),
             )
         );
 
@@ -118,10 +118,10 @@ class CleanerRole {
                  
                 add_settings_field( 
                     $capability,
-                    __($role_name, CLEANER_TEXT_DOMAIN),
-                    array($this, 'cleaner_role_checkbox_calback'),
-                    'cleaner_role_settings_section',
-                    'cleaner_role_settings_section',
+                    __($role_name, WPCLEANER_TEXT_DOMAIN),
+                    array($this, 'wpcleaner_role_checkbox_calback'),
+                    'wpcleaner_role_settings_section',
+                    'wpcleaner_role_settings_section',
                     array(
                         'name' => $capability,
                         'description' => $capability
@@ -131,21 +131,21 @@ class CleanerRole {
         }
     }
 
-    public function cleaner_role_checkbox_calback($args) {   
+    public function wpcleaner_role_checkbox_calback($args) {   
 
-        $html = '<input type="checkbox" id="'.$args['name'].'" name="cleaner_role_option['.$args['name'].']" value="1" '.cleaner_checked($this->options_role, $args['name']).'/>';
+        $html = '<input type="checkbox" id="'.$args['name'].'" name="wpcleaner_role_option['.$args['name'].']" value="1" '.wpcleaner_checked($this->options_role, $args['name']).'/>';
         $html .= '<label for="'.$args['name'].'"> '.$args['description'].'</label>';
          
         echo $html;
     }
 
-    public function cleaner_role_input_calback($args) {
+    public function wpcleaner_role_input_calback($args) {
 
         $input = (isset($this->options_role[$args['name']])) ? esc_attr($this->options_role[$args['name']]) : '';
 
         $size = (isset($args['size'])) ? $args['size'] : '20';
 
-        $html = '<input type="text" id="'.$args['name'].'" name="cleaner_role_option['.$args['name'].']" value="'.$input.'" size="'.$size.'"/>';
+        $html = '<input type="text" id="'.$args['name'].'" name="wpcleaner_role_option['.$args['name'].']" value="'.$input.'" size="'.$size.'"/>';
         $html .= '<label for="'.$args['name'].'"> '.$args['description'].'</label>';
 
         echo $html;
@@ -153,5 +153,5 @@ class CleanerRole {
 }
 
 if(is_admin()) {
-    $cleaner_role = new CleanerRole();
+    $wpcleaner_role = new WPCleanerRole();
 }
